@@ -10,42 +10,59 @@
 
     <div class="container" ng-controller="MainController as ctrl">
 
-        <!-- Button trigger modal -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Add <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#">IP camera</a></li>
-                <li><a href="#">Analog camera</a></li>
-                <li><a href="#">TX camera</a></li>
-                <li><a href="#">ONVIF partner system camera</a></li>
-            </ul>
-        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Multi-step form</div>
+            <div class="panel-body">
 
+                <form id="step_0">
+                    <div class="form-group">
+                        <label class="control-label">
+                            <span>Camera name:</span>
+                            <input type="text" class="form-control" ng-model="ctrl.form.cameraName">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Camera description:
+                            <input type="text" class="form-control" ng-model="ctrl.form.cameraDescr">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Camera inventory number:
+                            <input type="text" class="form-control" ng-model="ctrl.form.cameraInvNum">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Camera type:
+                            <select
+                                class="form-control"
+                                ng-options="item as item for item in ctrl.cameraTypes" ng-model="ctrl.form.cameraType">
+                                <option value="" selected hidden />
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            IP address:
+                            <input type="text" class="form-control" ng-model="ctrl.form.ipAddress">
+                        </label>
+                    </div>
+                    <div class="form-group" ng-if="ctrl.test()">
+                        <label class="control-label">
+                            IP port:
+                            <input type="text" class="form-control" ng-model="ctrl.form.ipPort">
+                        </label>
+                    </div>
+                </form>
 
-        <div class="row panel">
-            <div class="step" data-state="active" toggle-active ng-click="ctrl.setCurrentStep(0)">1</div>
-            <div class="step" data-state="normal" toggle-active ng-click="ctrl.setCurrentStep(1)">2</div>
-            <div class="step" data-state="normal" toggle-active ng-click="ctrl.setCurrentStep(2)">3</div>
-
-
-            <div ng-switch="ctrl.getCurrentStep()" class="slide-frame">
-                <div ng-switch-when="one">Hello</div>
-                <div ng-switch-when="two">World</div>
-                <div ng-switch-when="three">!!!!!!!!!!</div>
             </div>
 
-            <div class="nav-btns">
-                <button class="btn btn-default" ng-click="ctrl.handleCancel()">Cancel</button>
-                <button ng-if="!ctrl.isFirstStep()" ng-click="ctrl.handlePrevious()" class="btn btn-default">Prev</button>
-                <button ng-click="ctrl.handleNext()" class="btn btn-default">{{ctrl.getNextLabel()}}</button>
+            <div class="panel-footer">
+                <button class="btn btn-success" ng-click="ctrl.submit()">Submit</button>
             </div>
         </div>
-
-
-
-    </div>
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>

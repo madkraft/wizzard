@@ -7,65 +7,70 @@
     function MainController() {
         var ctrl = this;
 
-        ctrl.steps = ['one', 'two', 'three'];
-        ctrl.step = 0;
-        ctrl.wizard = {camera: 2};
 
-        ctrl.isCurrentStep = isCurrentStep;
-        ctrl.isFirstStep = isFirstStep;
-        ctrl.isLastStep = isLastStep;
-        ctrl.getCurrentStep = getCurrentStep;
-        ctrl.setCurrentStep = setCurrentStep;
-        ctrl.handlePrevious = handlePrevious;
-        ctrl.handleNext = handleNext;
-        ctrl.handleCancel = handleCancel;
-        ctrl.getNextLabel = getNextLabel;
+        var cameraClasses = [
+            {id: 0, name: 'ip'},
+            {id: 1, name: 'analog'},
+            {id: 2, name: 'tx'}
+        ];
 
+        ctrl.form = {
+            cameraClass: cameraClasses[0].id,
+            cameraName: '',
+            cameraDescr: '',
+            cameraInvNum: '',
+            cameraType: '',
+            ipAddress: ''
+        }
 
+        ctrl.cameraTypes = _getCameraTypes();
+        ctrl.submit = submit;
 
-        function getCurrentStep() {
-            return ctrl.steps[ctrl.step];
+        ctrl.test = _test;
+
+        function _test() {
+            return ctrl.form.ipAddress;
         }
 
 
-        function handlePrevious() {
-            ctrl.step -= ctrl.isFirstStep() ? 0 : 1;
-        };
-
-
-        function handleNext() {
-            if (ctrl.isLastStep()) {
-                console.log('submit and change url');
+        function _getCameraTypes() {
+            if (ctrl.form.cameraClass === 0) {
+                return [
+                    "Arecont",
+                    "Axis",
+                    "Onvif",
+                    "Pelco",
+                    "Sanyo",
+                    "Sentry"
+                ];
             } else {
-                ctrl.step += 1;
+                return [
+                    "A",
+                    "B",
+                    "C",
+                    "D",
+                    "E",
+                    "F"
+                ];
             }
-        };
-
-
-        function handleCancel() {
-            console.log('cancel');
-        };
-
-
-        function setCurrentStep(step) {
-            ctrl.step = step;
         }
 
-        function isFirstStep() {
-            return ctrl.step === 0;
+
+
+
+        function submit() {
+            if (_isValid()) {
+                console.log('Posting: ', ctrl.form);
+            } else {
+                return;
+            }
+
         }
 
-        function isLastStep() {
-            return ctrl.step === (ctrl.steps.length-1);
+        function _isValid() {
+            return true;
         }
 
-        function isCurrentStep(step) {
-            return ctrl.step === step;
-        }
-
-        function getNextLabel() {
-            return ctrl.isLastStep() ? 'Submit' : 'Next';
-        }
 
     }
 
