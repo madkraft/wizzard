@@ -8,16 +8,49 @@
     function MainController(formData) {
         var ctrl = this;
 
-        var steps = ['one', 'two'];
-        ctrl.currentStep = 'one';
 
-        // var isCurrentStep = function () {
-        //     return
-        // };
+        ctrl.steps = ['one', 'two', 'three'];
+        ctrl.step = 0;
+        ctrl.wizard = {tacos: 2};
 
-        ctrl.setCurrentStep = function (val) {
-            ctrl.currentStep = val;
+        ctrl.isCurrentStep = function (step) {
+            return ctrl.step === step;
         };
+
+        ctrl.setCurrentStep = function (step) {
+            ctrl.step = step;
+        };
+
+        ctrl.getCurrentStep = function () {
+            return ctrl.steps[ctrl.step];
+        };
+
+        ctrl.isFirstStep = function () {
+            return ctrl.step === 0;
+        };
+        ctrl.isLastStep = function () {
+            return ctrl.step === (ctrl.steps.length - 1);
+        };
+        ctrl.getNextLabel = function () {
+            return (ctrl.isLastStep()) ? 'Submit' : 'Next';
+        };
+        ctrl.handlePrevious = function () {
+            ctrl.step -= (ctrl.isFirstStep()) ? 0 : 1;
+        };
+        ctrl.handleNext = function () {
+            if (ctrl.isLastStep()) {
+                console.log('close');
+            } else {
+                ctrl.step += 1;
+            }
+        };
+
+
+
+
+
+
+
 
         var cameraClasses = [
             {id: 0, name: 'ip'},
