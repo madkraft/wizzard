@@ -8,13 +8,14 @@ var request = require('request');
 app.use(bodyParser.urlencoded({ extend: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 
 //Routes for the API
 var router = express.Router();
 router.use(function (req, res, next) {
     console.log('Got request');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     next();
 });
 
@@ -22,6 +23,10 @@ router.get('/', function (req, res) {
     res.json({message: 'It worked!'});
 });
 
+// app.get('/', function(req, res){
+//     console.log('', res.sendFile);
+//     // res.sendFile(__dirname + 'index.html');
+// });
 
 //Custom URL e.g. localhost:1337/api/ECHO
 // router.route('/:echo').get(function (req, res) {
@@ -96,9 +101,6 @@ var ip = [
 router.route('/ip').get(function (req, res) {
     res.json(ip);
 });
-router.route('/ip').get(function (req, res) {
-    res.json(addCamera);
-});
 router.route('/analog').get(function (req, res) {
     res.json(addCamera);
 });
@@ -116,4 +118,4 @@ app.use('/api', router);
 //Start the server
 app.listen(port);
 console.log('API server has been started on port ' + port + '...');
-console.log('http://localhost:8080/api');
+console.log('http://localhost:3000/api');

@@ -15,51 +15,153 @@
             <div class="panel-body">
 
                 <form id="step_0">
-                    <div class="form-group">
-                        <label class="control-label">
-                            <span>Camera name:</span>
-                            <input type="text" class="form-control" ng-model="ctrl.form.cameraName">
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Camera description:
-                            <input type="text" class="form-control" ng-model="ctrl.form.cameraDescr">
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Camera inventory number:
-                            <input type="text" class="form-control" ng-model="ctrl.form.cameraInvNum">
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            Camera type:
-                            <select
-                                class="form-control"
-                                ng-options="item as item for item in ctrl.cameraTypes" ng-model="ctrl.form.cameraType">
-                                <option value="" selected hidden />
-                            </select>
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            IP address:
-                            <input type="text" class="form-control" ng-model="ctrl.form.ipAddress">
-                        </label>
-                    </div>
-                    <div class="form-group" ng-if="ctrl.test()">
-                        <label class="control-label">
-                            IP port:
-                            <input type="text" class="form-control" ng-model="ctrl.form.ipPort">
-                        </label>
+                    <div class="" ng-switch="ctrl.currentStep">
+                        <div class="" ng-switch-when="one">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    <span>Camera name:</span>
+                                </label>
+                                <input type="text" class="form-control" ng-model="ctrl.form.cameraName">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Camera description:
+                                </label>
+                                <input type="text" class="form-control" ng-model="ctrl.form.cameraDescr">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Camera inventory number:
+                                </label>
+                                <input type="text" class="form-control" ng-model="ctrl.form.cameraInvNum">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">
+                                    IP address:
+                                </label>
+                                <input type="text" class="form-control" ng-model="ctrl.form.ipAddress">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    IP port:
+                                </label>
+                                <input type="text" class="form-control" ng-model="ctrl.form.ipPort">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Use device settings
+                                </label>
+                                <input type="checkbox" class="form-control" ng-model="ctrl.form.useDeviceSettings">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">
+                                    User name:
+                                </label>
+                                <input type="text" class="form-control" ng-model="ctrl.form.userName">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Password:
+                                </label>
+                                <input type="text" class="form-control" ng-model="ctrl.form.password">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Camera type:
+                                </label>
+                                <select
+                                    class="form-control"
+                                    ng-options="item as item.display for item in ctrl.cameraTypes" ng-model="ctrl.form.cameraType">
+                                    <option value="" selected hidden />
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="" ng-switch-when="two">
+                            <div class="form-group"">
+                                <label class="control-label">
+                                    Video streams specification:
+                                    <p>show mee table</p>
+                                </label>
+                            </div>
+
+                            <div class="form-group" ng-if="ctrl.isDesktopStreamer()">
+                                <h3>Video stream specification</h3>
+                                <p>Define desktop streamer parameters.</p>
+                                <div>
+                                    <label class="control-label">
+                                        Enabled:
+                                    </label>
+                                    <input type="checkbox" class="form-control" ng-model="ctrl.form.desktopStreamer.enabled">
+                                </div>
+                                <div>
+                                    <label class="control-label">
+                                        Name:
+                                    </label>
+                                    <input type="text" class="form-control" ng-model="ctrl.form.desktopStreamer.name">
+                                </div>
+                                <div>
+                                    <label class="control-label">
+                                        Stream:
+                                    </label>
+                                    <input type="text" class="form-control" ng-model="ctrl.form.desktopStreamer.stream">
+                                </div>
+                                <div>
+                                    <label class="control-label">
+                                        Type:
+                                    </label>
+                                    <input type="text" class="form-control" ng-model="ctrl.form.desktopStreamer.type">
+                                </div>
+                                <div>
+                                    <label class="control-label">
+                                        Size:
+                                    </label>
+                                    <input type="text" class="form-control" ng-model="ctrl.form.desktopStreamer.size">
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-if="ctrl.isRstp()">
+                                <h3>Video stream RSTP specification</h3>
+                                <p>Specify RTCP parameters.</p>
+                                <p>show me table here</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Device proxy:
+                                </label>
+                                <select
+                                    class="form-control"
+                                    ng-options="item as item for item in ctrl.deviceProxies" ng-model="ctrl.form.deviceProxy">
+                                    <option value="" selected hidden />
+                                </select>
+                            </div>
+
+                            <div class="form-group" ng-if="ctrl.isPTZ()">
+                                <label class="control-label">
+                                    Telemetry controller:
+                                </label>
+                                <select
+                                    class="form-control"
+                                    ng-options="item as item for item in ctrl.telemetryControllers" ng-model="ctrl.form.telemetryController">
+                                    <option value="" selected hidden />
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </form>
+
 
             </div>
 
             <div class="panel-footer">
+                <button class="btn btn-info" ng-click="ctrl.setCurrentStep('one')">1</button>
+                <button class="btn btn-info" ng-click="ctrl.setCurrentStep('two')">2</button>
                 <button class="btn btn-success" ng-click="ctrl.submit()">Submit</button>
             </div>
         </div>
