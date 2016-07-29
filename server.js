@@ -34,72 +34,104 @@ router.get('/', function (req, res) {
 // });
 
 
-var ip = [
+var ipSteps = [
     {
-        step: 0,
+        id: 0,
         title: 'Add camera',
         description: 'Provide basic parameters of new camera. Select type of new camera: IP or analog camera.',
         fields: [
-            {title: 'Camera name', required: true},
-            {title: 'Camera description'},
-            {title: 'Camera inventory number'}
+            {
+                title: 'Camera name',
+                inputType: 'text',
+                value: '',
+                required: true
+            }, {
+                title: 'Camera description',
+                inputType: 'text',
+                value: ''
+            }, {
+                title: 'Camera inventory number',
+                inputType: 'text',
+                value: ''
+            }, {
+                title: 'IP address',
+                inputType: 'text',
+                value: '',
+                required: true
+            }, {
+                title: 'IP port',
+                inputType: 'text',
+                value: '',
+                required: true
+            }
         ]
     },{
-        step: 1,
+        id: 1,
         title: 'Add IP Camera: type selection',
         description: 'Select type of IP camera (vendor or model name). Select model ended with PTZ word in order to add PTZ camera of selected type.',
         fields: [
             {
+                id: 'camType',
                 title: 'Camera type',
                 required: true,
-                types: ['Arecont', 'Axis', 'Onvif', 'Pelco', 'Sanyo', 'Sentry']
+                inputType: 'select',
+                value: 'Normal',
+                choices: ['RTSP', 'Desktop Streamer', 'Normal', 'PTZ']
+            }, {
+                title: 'Use device settings',
+                inputType: 'checkbox',
+                value: true
             }
         ]
     },{
-        step: 2,
-        title: 'Add IP camera: connection parameters',
-        description: 'Specify IP address and port of the camera',
-        fields: [
-            {title: 'IP address', required: true},
-            {title: 'IP port', required: true}
-        ]
-    },{
-        step: 3,
-        title: 'IP camera: access control',
-        description: 'Specify user name and password required to access the IP camera in order to control it',
-        fields: [
-            {title: 'User name'},
-            {title: 'Password'}
-        ]
-    },{
-        step: 4,
-        title: 'Use device settings',
-        description: 'Specify if the system will read encoding parameters, such as encoding type, frame rate or resolution, from the encoding device or they will be specified in system configuration',
-        fields: [
-            {title: 'Use device settings', checked: true}
-        ]
-    },{
-        step: 5,
+        id: 2,
         title: 'Video streams specification',
-        description: 'Define, how many encoding channels (streams) will be provided by this device. If device settings are not used, specify encoding parameters.'
+        description: 'Define, how many encoding channels (streams) will be provided by this device. If device settings are not used, specify encoding parameters.',
+        fields: [
+            {
+                title: 'Table 1',
+                inputType: 'text'
+            },
+            {
+                title: 'Table 2 RTSP',
+                inputType: 'text'
+            }
+        ]
     },{
-        step: 6,
+        id: 3,
         title: 'Device proxy selection',
         description: 'Select Video System Proxy node responsible to control this device',
         fields: [
             {
                 title: 'Device proxy',
                 required: true,
-                proxies: ['AD_host', 'Aulu', 'cokolwiek', 'test']
+                inputType: 'select',
+                value: 'AD_host',
+                choices: ['AD_host', 'Aulu', 'cokolwiek', 'test']
+            }, {
+                title: 'Telemetry controller',
+                required: true,
+                inputType: 'select',
+                value: 'telemetry_a',
+                choices: ['telemetry_a', 'telemetry_b', 'telemetry_c', 'telemetry_d']
+            }, {
+                title: 'User name',
+                inputType: 'text',
+                value: '',
+                required: true
+            }, {
+                title: 'Password',
+                inputType: 'password',
+                value: ''
             }
         ]
-    },
+    }
 ]
 
 
 // Step 1
 router.route('/ip').get(function (req, res) {
-    res.json(ip);
+    res.json(ipSteps);
 });
 router.route('/analog').get(function (req, res) {
     res.json(addCamera);

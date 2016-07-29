@@ -2,10 +2,10 @@
 
     'use strict';
 
-    app.service('formData', formData);
+    app.service('formDataService', formDataService);
 
-    formData.$inject = ['$http', '$q'];
-    function formData($http, $q) {
+    formDataService.$inject = ['$http', '$q'];
+    function formDataService($http, $q) {
 
         return {
             getData: getData

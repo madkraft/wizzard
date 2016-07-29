@@ -1,0 +1,30 @@
+<div class="step-nfo">
+    <h3>{{::ctrl.stepData.title}}</h3>
+    <p>{{::ctrl.stepData.description}}</p>
+</div>
+<hr>
+
+
+<div class="form-group" ng-repeat="field in ctrl.stepData.fields">
+    <div class="row">
+        <div class="col-sm-3 align-label">
+            <label class="control-label">
+                {{::field.title}}:
+            </label>
+        </div>
+        <div class="col-sm-9">
+            <select
+                class="form-control"
+                ng-options="field as field for field in field.choices"
+                ng-model="field.value"
+                ng-if="field.inputType === 'select'">
+            </select>
+            <input
+                type="{{field.inputType}}"
+                ng-model="field.value"
+                ng-if="field.inputType === 'checkbox'">
+            <input type="{{field.inputType}}" class="form-control" ng-model="field.value" ng-if="field.inputType === 'text'">
+            <input type="{{field.inputType}}" class="form-control" ng-model="field.value" ng-if="field.inputType === 'password'">
+        </div>
+    </div>
+</div>

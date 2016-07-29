@@ -1,0 +1,7 @@
+<div class="heading-content">
+    <button class="btn btn-round btn-nav"
+        ng-repeat="step in ::ctrl.steps"
+        disabled
+        ng-class="{'btn-primary':ctrl.isCurrentStep(step)}"
+        ng-click="ctrl.setCurrentStep(step)">{{step + 1}}</button>
+</div>

@@ -3,21 +3,6 @@ body {
     margin: 50px auto;
 }
 
-/*.step {
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    border-radius: 50%;
-    background: #ccc;
-    text-align: center;
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.step[data-state=active] {
-    background-color: #000;
-    color: #fff;
-}*/
 
 .container {
     max-width: 800px;
@@ -27,9 +12,19 @@ body {
 .btn-round {
     border-radius: 50%;
     margin-right: 10px;
+    height: 40px;
+    width: 40px;
 }
 
 .btn:focus,.btn:active:focus,.btn.active:focus,
 .btn.focus,.btn:active.focus,.btn.active.focus {
     outline: none;
+}
+
+.align-label {
+    text-align: right;
+}
+
+.form-control {
+    line-height: 34px;
 }

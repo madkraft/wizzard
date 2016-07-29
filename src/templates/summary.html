@@ -1,0 +1,15 @@
+<div class="step-nfo">
+    <h3>Form summary</h3>
+</div>
+<hr>
+
+
+<div ng-repeat="section in ctrl.summary">
+    <div class="row">
+        <div class="col-sm-4 text-right">
+            <b>{{::section.title}}:</b>
+        </div>
+        <div class="col-sm-8">{{::section.value}}</div>
+    </div>
+</div>
+

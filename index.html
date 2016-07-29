@@ -12,41 +12,28 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div>
-                    <button class="btn btn-round"
-                        ng-class="{'btn-primary':ctrl.isCurrentStep(0)}"
-                        ng-click="ctrl.setCurrentStep(0)">1</button>
-                    <button class="btn btn-round"
-                        ng-class="{'btn-primary':ctrl.isCurrentStep(1)}"
-                        ng-click="ctrl.setCurrentStep(1)">2</button>
-                    <button class="btn btn-round"
-                        ng-class="{'btn-primary':ctrl.isCurrentStep(2)}"
-                        ng-click="ctrl.setCurrentStep(2)">3</button>
-                </div>
+                <div ng-include="'./src/templates/header.html'"></div>
             </div>
             <div class="panel-body">
 
-                <div ng-switch="ctrl.getCurrentStep()" class="slide-frame">
-                    <div ng-switch-when="one">
-
-                    </div>
-                    <div ng-switch-when="two">
-
-                    </div>
-                    <div ng-switch-when="three">
-
+                <div ng-repeat="step in ::ctrl.steps" ng-if="!ctrl.isLastStep()">
+                    <div ng-if="step === ctrl.getCurrentStep()">
+                         <div ng-include="'./src/templates/panel.html'"></div>
                     </div>
                 </div>
 
-            </div>
-            <div class="panel-footer">
-                <button class="btn btn-default" ng-click="ctrl.handlePrevious()" ng-show="!ctrl.isFirstStep()">Back</button>
-                <button class="btn btn-primary" ng-click="ctrl.handleNext()">{{ctrl.getNextLabel()}}</button>
-                <button class="btn btn-success" ng-click="ctrl.cancel()">Cancel</button>
+                <div ng-if="ctrl.isLastStep()">
+                    <div ng-include="'./src/templates/summary.html'"></div>
+                </div>
+
+                <hr>
+
+                <div ng-include="'./src/templates/footer.html'"></div>
             </div>
         </div>
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/lodash/lodash.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="node_modules/angular/angular.js"></script>
     <script type="text/javascript" src="src/module.js"></script>
