@@ -3,6 +3,10 @@ body {
     margin: 50px auto;
 }
 
+.btn:focus,.btn:active:focus,.btn.active:focus,
+.btn.focus,.btn:active.focus,.btn.active.focus {
+    outline: none;
+}
 
 .container {
     max-width: 800px;
@@ -16,10 +20,6 @@ body {
     width: 40px;
 }
 
-.btn:focus,.btn:active:focus,.btn.active:focus,
-.btn.focus,.btn:active.focus,.btn.active.focus {
-    outline: none;
-}
 
 .align-label {
     text-align: right;
@@ -28,3 +28,28 @@ body {
 .form-control {
     line-height: 34px;
 }
+
+.panel-body {
+    position: relative;
+}
+
+.step {
+    background: #5bc0de;
+    color: #fff;
+    height: 100%;
+    width: 40px;
+    position: absolute;
+    top: 0;
+    left: -40px;
+    text-align: center;
+    /*border-top-left-radius: 4px;*/
+}
+
+
+
+
+
+
+
+
+

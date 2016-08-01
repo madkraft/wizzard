@@ -11,10 +11,11 @@
             getData: getData
         };
 
-        function getData() {
+        function getData(params) {
             var defer = $q.defer();
+            var URL = 'http://localhost:3000/api/ip/' + params;
 
-            $http.get('http://localhost:3000/api/ip').then(function (res) {
+            $http.get(URL).then(function (res) {
                 defer.resolve(res.data);
             });
 

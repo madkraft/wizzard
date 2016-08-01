@@ -12,25 +12,49 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div ng-include="'./src/templates/header.html'"></div>
             </div>
-            <div class="panel-body">
 
-                <div ng-repeat="step in ::ctrl.steps" ng-if="!ctrl.isLastStep()">
-                    <div ng-if="step === ctrl.getCurrentStep()">
-                         <div ng-include="'./src/templates/panel.html'"></div>
+            <fieldset  data-ng-repeat="choice in ctrl.choices">
+                <label>Title</label>
+                <input type="text" ng-model="choice.value" name="" placeholder="Placeholder???">
+            </fieldset>
+            <button class="addfields" ng-click="ctrl.addNewChoice()">Add fields</button>
+
+
+            <div class="panel-body">
+                <div class="step"><h1>1</h1></div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-3 align-label">
+                            {{customerInfo.name}} Address: {{customerInfo.address}}
+                            <label class="control-label">
+                                {{title}}
+                            </label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select
+                                class="form-control"
+                                ng-options="field as field for field in field.choices"
+                                ng-model="field.value">
+                            </select>
+                            <input type="text" class="form-control" ng-model="field.value">
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div ng-if="ctrl.isLastStep()">
-                    <div ng-include="'./src/templates/summary.html'"></div>
-                </div>
 
-                <hr>
 
+
+
+
+
+            <div class="panel-footer clearfix">
                 <div ng-include="'./src/templates/footer.html'"></div>
             </div>
+
         </div>
+        <pre>{{ ctrl.choices | json }}</pre>
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/lodash/lodash.min.js"></script>

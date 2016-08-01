@@ -2,34 +2,45 @@
 
     'use strict';
 
-    app.directive('enableNavButton', enableNavButton);
+    // app.directive('appendNext', appendNext);
+    // app.directive('stepElement', stepElement);
 
 
 
-    function enableNavButton() {
-        return {
-            restrict: 'A',
-            link: link
-        };
 
-        function link(scope, el, attrs) {
-            var buttons = angular.element('.btn-nav');
-            buttons[scope.ctrl.step].removeAttribute('disabled');
+    // appendNext.$inject = ['$compile'];
+    // function appendNext($compile) {
+    //     return {
+    //         restrict: 'A',
+    //         link: link,
+    //         scope: {}
+    //     };
 
-            el.on('click', function () {
+    //     function link(scope, el, attrs) {
+    //         var firstElement = angular.element('.panel-body-container'),
+    //             elementToAdd = angular.element('<step-element></step-element>'),
+    //             compliledElement = $compile(elementToAdd)(scope);
+
+    //         el.on('click', function () {
+    //             firstElement.append(compliledElement);
+    //         });
+    //     }
+    // }
 
 
-                if (scope.ctrl.isValid()) {
-                    buttons[scope.ctrl.step].removeAttribute('disabled');
-                    buttons[scope.ctrl.step - 1].classList.add('class', 'btn-success');
-                    buttons[scope.ctrl.step - 1].innerHTML = '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
-                } else {
-                    console.log('invalid');
-                }
-            });
 
-        }
-    }
+    // function stepElement() {
+    //     return {
+    //         link: link,
+    //         templateUrl: './src/templates/step-element.html'
+    //     };
+
+    //     function link(scope, el, attrs) {
+    //         console.log('', scope);
+    //         // scope.title = 'LOL title';
+    //         // scope.id = scope.ctrl.step;
+    //     }
+    // }
 
 
 

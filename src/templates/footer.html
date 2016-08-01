@@ -1,9 +1,8 @@
 <div class="pull-right">
-    <button class="btn btn-default" ng-click="ctrl.handlePrevious()" ng-if="!ctrl.isFirstStep()">Back</button>
     <button
         class="btn btn-primary"
-        enable-nav-button
-        ng-click="ctrl.handleNext(ctrl.stepData)">
+        append-next
+        ng-click="ctrl.handleNext()">
             {{ctrl.getNextLabel()}}
     </button>
     <button class="btn btn-default" ng-click="ctrl.cancel()">Cancel</button>
