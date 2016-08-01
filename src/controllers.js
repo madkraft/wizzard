@@ -28,12 +28,13 @@
             ]
         }
 
-        ctrl.choices = [{id: 'step1', value: ''}];
+        ctrl.choices = [ipStep1];
 
         ctrl.addNewChoice = function() {
             var newItemNo = ctrl.choices.length+1;
-            ctrl.choices.push({'id':'step'+newItemNo});
+            ctrl.choices.push({'id':newItemNo});
         };
+
 
 
     }

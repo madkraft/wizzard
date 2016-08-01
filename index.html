@@ -15,17 +15,31 @@
             </div>
 
             <div class="panel-body" ng-repeat="choice in ctrl.choices">
-                <div class="step"><h1>1</h1></div>
+                <div class="step">
+                    <h1>{{choice.id}}</h1>
+                </div>
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-sm-3 align-label">
+                        <div class="col-md-12">
+                            <h1>{{choice.title}}</h1>
+                            <p>{{choice.description}}</p>
+                        </div>
+                        <div class="col-md-12" ng-repeat="field in choice.fields">
                             <label class="control-label">
-                                Title:
+                                {{field.title}}
+                            </label>
+                            <input type="text" class="form-control" ng-model="choice.value">
+                        </div>
+
+                        <!-- <div class="col-sm-3 align-label">
+                            <label class="control-label">
+                                {{choice.title}}
                             </label>
                         </div>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" ng-model="choice.value">
-                        </div>
+                        </div> -->
+
                     </div>
                 </div>
             </div>
