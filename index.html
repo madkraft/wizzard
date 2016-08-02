@@ -14,31 +14,26 @@
             <div class="panel-heading">
             </div>
 
-            <div class="panel-body" ng-repeat="choice in ctrl.choices">
+            <div class="panel-body" ng-repeat="section in ctrl.sections ">
                 <div class="step">
-                    <h1>{{choice.id}}</h1>
+                    <h1>{{$index + 1}}</h1>
                 </div>
                 <div class="form-group">
                     <div class="row">
+
                         <div class="col-md-12">
-                            <h1>{{choice.title}}</h1>
-                            <p>{{choice.description}}</p>
-                        </div>
-                        <div class="col-md-12" ng-repeat="field in choice.fields">
-                            <label class="control-label">
-                                {{field.title}}
-                            </label>
-                            <input type="text" class="form-control" ng-model="choice.value">
+                            <h1>{{section.title}}</h1>
+                            <p>{{section.description}}</p>
+                            <hr>
                         </div>
 
-                        <!-- <div class="col-sm-3 align-label">
+                        <div class="col-md-12 form-field" ng-repeat="field in section.fields">
                             <label class="control-label">
-                                {{choice.title}}
+                                {{field.label}}
                             </label>
+                            <select></select>
+                            <input type="{{field.inputType}}" class="form-control" ng-model="field.value">
                         </div>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" ng-model="choice.value">
-                        </div> -->
 
                     </div>
                 </div>
@@ -49,10 +44,11 @@
             </div>
 
         </div>
-        <pre>{{ ctrl.choices | json }}</pre>
+        <pre>{{ ctrl.sections | json }}</pre>
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="node_modules/qs/dist/qs.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="node_modules/angular/angular.js"></script>
     <script type="text/javascript" src="src/module.js"></script>

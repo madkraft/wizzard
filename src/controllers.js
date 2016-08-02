@@ -8,32 +8,44 @@
     function MainController(FormDataService) {
         var ctrl = this;
 
-        var ipStep1 = {
-            id: 1,
-            title: 'Add IP Camera: type selection',
-            description: 'Select type of IP camera (vendor or model name). Select model ended with PTZ word in order to add PTZ camera of selected type.',
-            fields: [
-                {
-                    id: 'camType',
-                    title: 'Camera type',
-                    required: true,
-                    inputType: 'select',
-                    value: 'Normal',
-                    choices: ['RTSP', 'Desktop Streamer', 'Normal', 'PTZ']
-                }, {
-                    title: 'Use device settings',
-                    inputType: 'checkbox',
-                    value: true
-                }
-            ]
+        ctrl.step = 0;
+        ctrl.params = {};
+
+        // TODO
+        // resolve this in route definition (ui-router)
+        FormDataService.getData(ctrl.step, {id: 1}).then(function (data) {
+            ctrl.sections = [data];
+        });
+
+
+        ctrl.showNextStep = function(step) {
+            ctrl.step = step + 1;
+
+            FormDataService.getData(ctrl.step, {params: result()}).then(function (data) {
+                ctrl.sections.push(data);
+            });
+
+        };
+
+
+
+        function result(step) {
+            var result = {};
+
+            var section = ctrl.sections.map(function (section) {
+                return section.fields;
+            });
+
+            var fields = _.flattenDeep(section);
+
+            _.forEach(fields, function (field) {
+                result[field.name] = field.value;
+            });
+
+            return result;
         }
 
-        ctrl.choices = [ipStep1];
 
-        ctrl.addNewChoice = function() {
-            var newItemNo = ctrl.choices.length+1;
-            ctrl.choices.push({'id':newItemNo});
-        };
 
 
 

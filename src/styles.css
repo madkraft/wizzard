@@ -36,19 +36,18 @@ body {
 .step {
     background: #5bc0de;
     color: #fff;
-    height: 100%;
     width: 40px;
     position: absolute;
     top: 0;
+    bottom: 10px;
     left: -40px;
     text-align: center;
     /*border-top-left-radius: 4px;*/
 }
 
-
-
-
-
+.form-field {
+    margin-bottom: 20px;
+}
 
 
 
