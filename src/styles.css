@@ -3,6 +3,10 @@ body {
     margin: 50px auto;
 }
 
+label {
+    width: 100%;
+}
+
 .btn:focus,.btn:active:focus,.btn.active:focus,
 .btn.focus,.btn:active.focus,.btn.active.focus {
     outline: none;

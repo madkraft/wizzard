@@ -30,9 +30,23 @@
                         <div class="col-md-12 form-field" ng-repeat="field in section.fields">
                             <label class="control-label">
                                 {{field.label}}
-                            </label>
-                            <select></select>
-                            <input type="{{field.inputType}}" class="form-control" ng-model="field.value">
+
+                                <select
+                                    class="form-control"
+                                    ng-options="field as field for field in field.choices"
+                                    ng-model="field.value"
+                                    ng-if="field.inputType === 'select'">
+                                </select>
+                                <input
+                                    type="{{field.inputType}}"
+                                    class="form-control"
+                                    ng-model="field.value"
+                                    ng-if="field.inputType === 'text'">
+                                <input
+                                    type="{{field.inputType}}"
+                                    ng-model="field.value"
+                                    ng-if="field.inputType === 'checkbox'">
+                                </label>
                         </div>
 
                     </div>

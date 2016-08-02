@@ -76,88 +76,135 @@ router.get('/', function (req, res) {
 // });
 
 
+var wizzard = {
+    firstStep: initialResponse,
+
+}
+
+
+
+
+var initialResponse = {
+    title: 'Add camera',
+    description: 'Provide basic parameters of new camera. Select type of new camera: IP or analog camera.',
+    nextStep: nextStep,
+    fields: [
+        {
+            label: 'Camera name',
+            name: 'camName',
+            inputType: 'text',
+            value: '',
+            required: true
+        }, {
+            label: 'Camera description',
+            name: 'camDesc',
+            inputType: 'text',
+            value: ''
+        }, {
+            label: 'Camera inventory number',
+            name: 'camInvNum',
+            inputType: 'text',
+            value: ''
+        }, {
+            label: 'IP address',
+            name: 'ipAddress',
+            inputType: 'text',
+            value: '',
+            required: true
+        }, {
+            label: 'IP port',
+            name: 'ipPort',
+            inputType: 'text',
+            value: '',
+            required: true
+        }
+    ]
+};
+
+
+var nextStep = function () {
+    console.log('next step!!!');
+};
+
+
+var camType = {
+    title: 'Add IP Camera: use device settings',
+    description: 'Select type of IP camera (vendor or model name).',
+    nextStep: function () {
+        if (this.value) {}
+    }
+    fields: [
+        {
+            label: 'Use device settings',
+            name: 'useSettings',
+            inputType: 'checkbox',
+            value: true
+        }
+    ]
+};
+
+var selectType = {
+    title: 'Add IP Camera: type selection',
+    description: 'Select type of IP camera (vendor or model name). Select model ended with PTZ word in order to add PTZ camera of selected type.',
+    fields: [
+        {
+            label: 'Camera type',
+            name: 'camType',
+            required: true,
+            inputType: 'select',
+            value: 'Normal',
+            choices: ['RTSP', 'Desktop Streamer', 'Normal', 'PTZ']
+        }
+    ]
+};
+
+
+var videoStreamsSpecs = {
+    title: 'Video streams specification',
+    description: 'Define, how many encoding channels (streams) will be provided by this device. If device settings are not used, specify encoding parameters.',
+    fields: [
+        {
+            label: 'Table 1',
+            name: 'table1',
+            inputType: 'text',
+            depends: ['Normal', 'PTZ']
+        },
+        {
+            label: 'Table 2 RTSP',
+            name: 'table2',
+            inputType: 'text',
+            depends: ['RTSP']
+        }
+    ]
+};
+
+
+
+
+
 
 router.route('/ip/0').get(function (req, res) {
-    var response = {
-        title: 'Add camera',
-        description: 'Provide basic parameters of new camera. Select type of new camera: IP or analog camera.',
-        fields: [
-            {
-                label: 'Camera name',
-                name: 'camName',
-                inputType: 'text',
-                value: '',
-                required: true
-            }, {
-                label: 'Camera description',
-                name: 'camDesc',
-                inputType: 'text',
-                value: ''
-            }, {
-                label: 'Camera inventory number',
-                name: 'camInvNum',
-                inputType: 'text',
-                value: ''
-            }, {
-                label: 'IP address',
-                name: 'ipAddress',
-                inputType: 'text',
-                value: '',
-                required: true
-            }, {
-                label: 'IP port',
-                name: 'ipPort',
-                inputType: 'text',
-                value: '',
-                required: true
-            }
-        ]
-    };
-
-    res.json(response);
+    res.json(initialResponse);
 });
 
 
-
 router.route('/ip/1').get(function (req, res) {
-
-    var response = {
-        title: 'Add IP Camera: type selection',
-        description: 'Select type of IP camera (vendor or model name). Select model ended with PTZ word in order to add PTZ camera of selected type.',
-        fields: [
-            {
-                label: 'Camera type',
-                name: 'camType',
-                required: true,
-                inputType: 'select',
-                value: 'Normal',
-                choices: ['RTSP', 'Desktop Streamer', 'Normal', 'PTZ']
-            }
-        ]
-    };
-
-    res.json(response);
+    res.json(selectType);
 });
 
 
 router.route('/ip/2').get(function (req, res) {
-    var response = {
-        title: 'Add IP Camera: use device settings',
-        description: 'Select type of IP camera (vendor or model name).',
-        fields: [
-            {
-                label: 'Use device settings',
-                name: 'useSettings',
-                inputType: 'checkbox',
-                value: true,
-                depends: ['Normal', 'PTZ'],
-            }
-        ]
-    };
-    res.json(response);
+    if (req.query.camType === 'Normal' || req.query.camType === 'PTZ') {
+        res.json(camType);
+    } else {
+        res.json(videoStreamsSpecs);
+    }
 });
+
+
 router.route('/ip/3').get(function (req, res) {
     var response = {
+        id: 'videoStreamsSpecs',
         title: 'Video streams specification',
         description: 'Define, how many encoding channels (streams) will be provided by this device. If device settings are not used, specify encoding parameters.',
         fields: [
