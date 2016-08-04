@@ -76,6 +76,7 @@
         function handleNext(data) {
             if (isLastStep()) {
                 console.log('submit and close');
+                location.reload();
             } else {
                 if (isValid()) {
                     _saveData(data); //////////////// Make it into service
