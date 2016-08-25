@@ -15,8 +15,7 @@
                 <div ng-include="'./src/templates/header.html'"></div>
             </div>
             <div class="panel-body">
-
-                <div ng-repeat="step in ::ctrl.steps" ng-if="!ctrl.isLastStep()">
+                <div ng-repeat="step in ctrl.steps" ng-if="!ctrl.isLastStep()">
                     <div ng-if="step === ctrl.getCurrentStep()">
                          <div ng-include="'./src/templates/panel.html'"></div>
                     </div>

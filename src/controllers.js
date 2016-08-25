@@ -20,65 +20,49 @@
         //     console.log('changed');
         // })
 
-
-
-        ctrl.isLastStep = isLastStep;
-        ctrl.isCurrentStep = isCurrentStep;
-        ctrl.setCurrentStep = setCurrentStep;
-        ctrl.getCurrentStep = getCurrentStep;
-        ctrl.isFirstStep = isFirstStep;
-        ctrl.getNextLabel = getNextLabel;
-        ctrl.handlePrevious = handlePrevious;
-        ctrl.handleNext = handleNext;
-        ctrl.isValid = isValid;
-
-
-        FormDataService.getData().then(function (data) {
-            allData = data;
-
-            ctrl.steps = data.map(function (step) {
-                return step.id;
-            })
-
-            ctrl.steps.push(ctrl.steps.length);
-
-
-        });
-
-
-
-
-        function isCurrentStep(step) {
-            return ctrl.step === step;
+        ctrl.isLastStep = function() {
+            return ctrl.step === (ctrl.steps.length - 1);
         };
 
-        function setCurrentStep(step) {
-            ctrl.step = step;
-        };
 
-        function getCurrentStep() {
+        ctrl.getCurrentStep = function() {
             ctrl.stepData = allData[ctrl.step];
             return ctrl.steps[ctrl.step];
         };
 
-        function isFirstStep() {
+
+
+        ctrl.isCurrentStep = function isCurrentStep(step) {
+            return ctrl.step === step;
+        };
+
+
+        ctrl.setCurrentStep = function setCurrentStep(step) {
+            ctrl.step = step;
+        };
+
+
+        ctrl.isFirstStep = function isFirstStep() {
             return ctrl.step === 0;
         };
 
-        function getNextLabel() {
-            return (isLastStep()) ? 'Submit' : 'Next';
+
+        ctrl.getNextLabel = function getNextLabel() {
+            return (ctrl.isLastStep()) ? 'Submit' : 'Next';
         };
 
-        function handlePrevious() {
+
+        ctrl.handlePrevious = function handlePrevious() {
             ctrl.step -= (ctrl.isFirstStep()) ? 0 : 1;
         };
 
-        function handleNext(data) {
-            if (isLastStep()) {
+
+        ctrl.handleNext = function handleNext(data) {
+            if (ctrl.isLastStep()) {
                 console.log('submit and close');
                 location.reload();
             } else {
-                if (isValid()) {
+                if (ctrl.isValid()) {
                     _saveData(data); //////////////// Make it into service
                     ctrl.summary = getSummary();
                     ctrl.step += 1;
@@ -88,6 +72,24 @@
             }
         };
 
+
+        ctrl.isValid = function isValid() {
+            return true;
+        };
+
+
+        FormDataService.getData().then(function (data) {
+            allData = data;
+
+            ctrl.steps = data.map(function (step) {
+                return step.id;
+            });
+
+            ctrl.steps.push(ctrl.steps.length);
+        });
+
+
+
         function _saveData(data) {
             if (_.indexOf(ctrl.finalResult, data) === -1) {
                 ctrl.finalResult.push(data);
@@ -95,21 +97,15 @@
             // console.log('', ctrl.finalResult);
         }
 
-        function isLastStep() {
-            return ctrl.step === (ctrl.steps.length - 1);
-        };
-
 
         function getSummary() {
             var fields =  _.map(ctrl.finalResult, function (step) {
                 return step.fields;
             });
             return _.flattenDeep(fields);
-        };
-
-        function isValid() {
-            return true;
         }
+
+
 
 
 
